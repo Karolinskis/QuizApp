@@ -21,9 +21,12 @@ public class QuizController : ControllerBase
     [HttpPost("submit")]
     public IActionResult SubmitQuiz([FromBody] QuizSubmissionDto submission)
     {
-        int score = _quizService.CalculateScore(submission);
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
 
-        // TODO: Might want to add some validation here
+        int score = _quizService.CalculateScore(submission);
 
         var quizEntry = new QuizEntry
         {

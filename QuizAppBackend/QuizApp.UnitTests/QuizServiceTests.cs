@@ -93,6 +93,7 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>
             {
                 new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "A" } },
@@ -127,6 +128,7 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>
             {
                 new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "A" } }
@@ -160,6 +162,7 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>
             {
                 new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "Correct Answer" } }
@@ -193,6 +196,7 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>
             {
                 new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "Incorrect Answer" } }
@@ -221,11 +225,12 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>
-        {
-            new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "Option 1" } },
-            new AnswerDto { QuestionId = 2, AnswerValue = new List<string> { "Option 2" } }
-        }
+            {
+                new AnswerDto { QuestionId = 1, AnswerValue = new List<string> { "Option 1" } },
+                new AnswerDto { QuestionId = 2, AnswerValue = new List<string> { "Option 2" } }
+            }
         };
 
         _context.Questions.AddRange(questions);
@@ -255,6 +260,7 @@ public class QuizServiceTests : IDisposable
 
         var submission = new QuizSubmissionDto
         {
+            Email = "test@example.com",
             Answers = new List<AnswerDto>()
         };
 
