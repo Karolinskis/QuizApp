@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using QuizApp.Models.DTOs;
 using QuizApp.Services;
 using System.Linq;
 
@@ -14,9 +15,9 @@ public class HighScoresController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetTopScores()
+    public ActionResult<List<HighScoreDto>> GetHighScores([FromQuery] int count = 10)
     {
-        var topScores = _quizService.GetTopScores();
+        var topScores = _quizService.GetHighScores(count);
 
         return Ok(topScores);
     }

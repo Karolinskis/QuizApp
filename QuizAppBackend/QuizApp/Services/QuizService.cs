@@ -61,18 +61,18 @@ namespace QuizApp.Services
             _applicationContext.SaveChanges();
         }
 
-        public List<object> GetTopScores() // TODO: Shouldn't be an object
+        public List<HighScoreDto> GetHighScores(int count)
         {
             return _applicationContext.QuizEntries
                 .OrderByDescending(qe => qe.Score)
-                .Take(10)
-                .Select(qe => new
+                .Take(count)
+                .Select(qe => new HighScoreDto
                 {
-                    qe.Email,
-                    qe.Score,
-                    qe.CompletedAt
+                    Email = qe.Email,
+                    Score = qe.Score,
+                    CompletedAt = qe.CompletedAt
                 })
-                .ToList<object>();
+                .ToList();
         }
     }
 }

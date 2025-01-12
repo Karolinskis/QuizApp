@@ -1,7 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import QuizPage from "./components/QuizPage";
-import LeaderboardPage from "./components/LeaderboardPage";
+import HighScoresPage from "./components/HighScoresPage";
 import NotFoundPage from "./components/NotFoundPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -20,7 +20,7 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<QuizPage />} />
-          <Route path="/high-scores" element={<LeaderboardPage />} />
+          <Route path="/high-scores" element={<HighScoresPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Box>

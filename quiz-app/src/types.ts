@@ -12,3 +12,9 @@ export interface QuizSubmission {
     answerValue: string[];
   }[];
 }
+
+export interface HighScore {
+  email: string;
+  score: number;
+  completedAt: string;
+}
