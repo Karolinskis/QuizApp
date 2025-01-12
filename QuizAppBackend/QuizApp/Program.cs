@@ -38,6 +38,6 @@ app.UseCors();
 
 app.MapControllers();
 
-Helper.SetupDb(app);
+DatabaseInitializer.SetupDb(app);
 
 app.Run();

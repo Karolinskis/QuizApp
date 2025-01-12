@@ -2,7 +2,7 @@ using QuizApp.Data;
 
 namespace QuizApp
 {
-    public class Helper
+    public class DatabaseInitializer
     {
         public static void SetupDb(WebApplication app)
         {
@@ -39,18 +39,18 @@ namespace QuizApp
                         },
                         new Question
                         {
-                            Text = "What is the largest ocean on Earth?",
+                            Text = "What does HTTP stand for?",
                             Type = QuestionType.RadioButton,
-                            Options = new List<string> { "Atlantic Ocean", "Indian Ocean", "Arctic Ocean", "Pacific Ocean" },
-                            CorrectAnswer = new List<string> { "Pacific Ocean" }
+                            Options = new List<string> { "Hypertext Transfer Protocol", "High-Tech Transfer Platform", "Hyperlink Text Transport", "High-Speed Text Processing" },
+                            CorrectAnswer = new List<string> { "Hypertext Transfer Protocol" }
                         },
 
                         // Text input questions
                         new Question
                         {
-                            Text = "Who wrote 'To Kill a Mockingbird'?",
+                            Text = "What is the capital of Japan?",
                             Type = QuestionType.Textbox,
-                            CorrectAnswer = new List<string> { "Harper Lee" }
+                            CorrectAnswer = new List<string> { "Tokyo" }
                         },
                         new Question
                         {
@@ -69,17 +69,17 @@ namespace QuizApp
                         },
                         new Question
                         {
-                            Text = "Which of the following are fruits?",
+                            Text = "Which of the following are dairy products?",
                             Type = QuestionType.Checkbox,
-                            Options = new List<string> { "Apple", "Carrot", "Banana", "Potato" },
-                            CorrectAnswer = new List<string> { "Apple", "Banana" }
+                            Options = new List<string> { "Milk", "Bread", "Cheese", "Apple" },
+                            CorrectAnswer = new List<string> { "Milk", "Cheese" }
                         },
                         new Question
                         {
-                            Text = "Which of the following are prime numbers?",
+                            Text = "Which of the following are 4-legged animals?",
                             Type = QuestionType.Checkbox,
-                            Options = new List<string> { "2", "3", "4", "5" },
-                            CorrectAnswer = new List<string> { "2", "3", "5" }
+                            Options = new List<string> { "Dog", "Snake", "Cat", "Bird" },
+                            CorrectAnswer = new List<string> { "Dog", "Cat" }
                         },
                         new Question
                         {
