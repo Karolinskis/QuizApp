@@ -18,7 +18,7 @@ public class QuizController : ControllerBase
         _quizService = quizService;
     }
 
-    [HttpPost("answer")]
+    [HttpPost("submit")]
     public IActionResult SubmitQuiz([FromBody] QuizSubmissionDto submission)
     {
         int score = _quizService.CalculateScore(submission);
@@ -41,7 +41,7 @@ public class QuizController : ControllerBase
         return Ok(new { Score = score });
     }
 
-    [HttpGet]
+    [HttpGet("questions")]
     public ActionResult<List<QuestionDto>> GetQuestions()
     {
         var questions = _quizService.GetQuestions();

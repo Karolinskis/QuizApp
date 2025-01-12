@@ -1,10 +1,12 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import QuizPage from "./components/QuizPage";
-import HighScoresPage from "./components/HighScoresPage";
-import NotFoundPage from "./components/NotFoundPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
+import QuizPage from "./pages/QuizPage";
+import HighScoresPage from "./pages/HighScoresPage";
+import NotFoundPage from "./pages/NotFoundPage";
+
 import { Box } from "@mui/material";
 
 function App() {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Question, QuizSubmission } from "../types";
 import { getQuestions, submitQuiz } from "../api";
 import {
@@ -10,14 +11,20 @@ import {
   Step,
   StepLabel,
 } from "@mui/material";
-import QuestionComponent from "./QuestionComponent";
-import RegistrationStep from "./RegistrationStep";
+import QuestionComponent from "../components/QuestionComponent";
+import RegistrationStep from "../components/RegistrationStep";
+import ConfirmDialog from "../components/ConfirmDialog";
+import ScoreModal from "../components/ScoreModal";
 
 const QuizPage = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [email, setEmail] = useState("");
   const [answers, setAnswers] = useState<{ [key: number]: string[] }>({});
   const [activeStep, setActiveStep] = useState(0);
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
+  const [scoreModalOpen, setScoreModalOpen] = useState(false);
+  const [score, setScore] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getQuestions().then((response) => setQuestions(response.data));
@@ -45,8 +52,11 @@ const QuizPage = () => {
 
     console.log(submission);
 
-    // const response = await submitQuiz(submission);
-    // alert(`Your score is: ${response.data.score}`);
+    const response = await submitQuiz(submission);
+    const score: number = response.data.score;
+
+    setScore(score);
+    setScoreModalOpen(true);
   };
 
   const setAnswer = (questionId: number, answer: string[]) => {
@@ -57,6 +67,47 @@ const QuizPage = () => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   };
+
+  const handleConfirmDialogOpen = () => {
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmDialogClose = () => {
+    setConfirmDialogOpen(false);
+  };
+
+  const handleConfirmDialogSubmit = () => {
+    setConfirmDialogOpen(false);
+    handleSubmit();
+  };
+
+  const handleScoreModalClose = () => {
+    setScoreModalOpen(false);
+    navigate("/high-scores");
+  };
+
+  const handleViewHighScores = () => {
+    navigate("/high-scores");
+  };
+
+  if (questions.length === 0) {
+    return (
+      <Container maxWidth="md">
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          align="center"
+          mb={5}
+        >
+          Quiz
+        </Typography>
+        <Typography variant="body1" align="center">
+          No questions available. Please try again later.
+        </Typography>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md">
@@ -99,7 +150,11 @@ const QuizPage = () => {
           Back
         </Button>
         {activeStep === questions.length ? (
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleConfirmDialogOpen}
+          >
             Submit
           </Button>
         ) : (
@@ -113,6 +168,21 @@ const QuizPage = () => {
           </Button>
         )}
       </Box>
+
+      <ConfirmDialog
+        open={confirmDialogOpen}
+        onClose={handleConfirmDialogClose}
+        onConfirm={handleConfirmDialogSubmit}
+      />
+
+      {score !== null && (
+        <ScoreModal
+          open={scoreModalOpen}
+          score={score}
+          onClose={handleScoreModalClose}
+          onViewHighScores={handleViewHighScores}
+        />
+      )}
     </Container>
   );
 };

@@ -69,24 +69,32 @@ const HighScoresPage = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {highScores.map((entry, index) => (
-              <TableRow key={index}>
-                <TableCell align="center">
-                  <Box component="span" fontWeight="bold">
-                    {getPosition(index)}
-                  </Box>
-                </TableCell>
-                <TableCell align="center" style={{ color: getColor(index) }}>
-                  {entry.email}
-                </TableCell>
-                <TableCell align="center" style={{ color: getColor(index) }}>
-                  {entry.score}
-                </TableCell>
-                <TableCell align="center" style={{ color: getColor(index) }}>
-                  {new Date(entry.completedAt).toLocaleString()}
+            {highScores.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={4} align="center">
+                  No high scores yet. Be the first to take the quiz!
                 </TableCell>
               </TableRow>
-            ))}
+            ) : (
+              highScores.map((entry, index) => (
+                <TableRow key={index}>
+                  <TableCell align="center">
+                    <Box component="span" fontWeight="bold">
+                      {getPosition(index)}
+                    </Box>
+                  </TableCell>
+                  <TableCell align="center" style={{ color: getColor(index) }}>
+                    {entry.email}
+                  </TableCell>
+                  <TableCell align="center" style={{ color: getColor(index) }}>
+                    {entry.score}
+                  </TableCell>
+                  <TableCell align="center" style={{ color: getColor(index) }}>
+                    {new Date(entry.completedAt).toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
           </TableBody>
         </Table>
       </TableContainer>

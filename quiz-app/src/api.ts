@@ -6,8 +6,8 @@ const api = axios.create({
 });
 
 export const submitQuiz = (submission: QuizSubmission) =>
-  api.post("/quiz", submission);
-export const getQuestions = () => api.get<Question[]>("/quiz");
+  api.post("/quiz/submit", submission);
+export const getQuestions = () => api.get<Question[]>("/quiz/questions");
 
 export const getHighScores = (count: number = 10) =>
   api.get<HighScore[]>(`/highscores?count=${count}`);
