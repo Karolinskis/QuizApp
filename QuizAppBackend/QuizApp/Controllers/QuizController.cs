@@ -6,16 +6,19 @@ using QuizApp.Models.DTOs;
 using QuizApp.Models;
 
 using QuizApp.Services;
+using AutoMapper;
 
 [ApiController]
 [Route("api/[controller]")]
 public class QuizController : ControllerBase
 {
     private readonly IQuizService _quizService;
+    private readonly IMapper _mapper;
 
-    public QuizController(IQuizService quizService)
+    public QuizController(IQuizService quizService, IMapper mapper)
     {
         _quizService = quizService;
+        _mapper = mapper;
     }
 
     [HttpPost("submit")]
@@ -28,17 +31,10 @@ public class QuizController : ControllerBase
 
         int score = _quizService.CalculateScore(submission);
 
-        var quizEntry = new QuizEntry
-        {
-            Email = submission.Email,
-            Score = score,
-            CompletedAt = DateTime.UtcNow,
-            Answers = submission.Answers.Select(a => new Answer
-            {
-                QuestionId = a.QuestionId,
-                AnswerValue = a.AnswerValue
-            }).ToList()
-        };
+        var quizEntry = _mapper.Map<QuizEntry>(submission);
+        quizEntry.Score = score;
+        quizEntry.CompletedAt = DateTime.Now;
+
         _quizService.AddQuizEntry(quizEntry);
 
         return Ok(new { Score = score });

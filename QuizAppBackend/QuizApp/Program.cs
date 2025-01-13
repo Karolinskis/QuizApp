@@ -19,6 +19,8 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 
 builder.Services.AddControllers();
 
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
 builder.Services.AddScoped<IQuizService, QuizService>();
 
 builder.Services.AddEndpointsApiExplorer();

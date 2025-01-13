@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using QuizApp.Data;
 using QuizApp.Models;
@@ -8,22 +9,17 @@ namespace QuizApp.Services
     public class QuizService : IQuizService
     {
         private readonly ApplicationContext _applicationContext;
-        public QuizService(ApplicationContext applicationContext)
+        private readonly IMapper _mapper;
+        public QuizService(ApplicationContext applicationContext, IMapper mapper)
         {
             _applicationContext = applicationContext;
+            _mapper = mapper;
         }
 
         public List<QuestionDto> GetQuestions()
         {
-            return _applicationContext.Questions
-                .Select(q => new QuestionDto
-                {
-                    Id = q.Id,
-                    Text = q.Text,
-                    Type = q.Type.ToString(),
-                    Options = q.Options
-                })
-                .ToList();
+            var questions = _applicationContext.Questions.ToList();
+            return _mapper.Map<List<QuestionDto>>(questions);
         }
 
         public int CalculateScore(QuizSubmissionDto submission)
@@ -63,16 +59,12 @@ namespace QuizApp.Services
 
         public List<HighScoreDto> GetHighScores(int count)
         {
-            return _applicationContext.QuizEntries
+            var quizEntries = _applicationContext.QuizEntries
                 .OrderByDescending(qe => qe.Score)
                 .Take(count)
-                .Select(qe => new HighScoreDto
-                {
-                    Email = qe.Email,
-                    Score = qe.Score,
-                    CompletedAt = qe.CompletedAt
-                })
                 .ToList();
+
+            return _mapper.Map<List<HighScoreDto>>(quizEntries);
         }
     }
 }

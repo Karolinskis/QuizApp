@@ -5,6 +5,7 @@ using QuizApp.Data;
 using QuizApp.Models;
 using QuizApp.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +15,7 @@ public class QuizServiceTests : IDisposable
 {
     private readonly QuizService _quizService;
     private readonly ApplicationContext _context;
+    private readonly IMapper _mapper;
 
     public QuizServiceTests()
     {
@@ -22,7 +24,14 @@ public class QuizServiceTests : IDisposable
             .Options;
 
         _context = new ApplicationContext(options);
-        _quizService = new QuizService(_context);
+
+        var config = new MapperConfiguration(cfg =>
+        {
+            cfg.AddProfile<MappingProfile>();
+        });
+        _mapper = config.CreateMapper();
+
+        _quizService = new QuizService(_context, _mapper);
     }
 
     public void Dispose()
